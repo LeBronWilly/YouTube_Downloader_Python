@@ -1,0 +1,70 @@
+pyinstaller -F --hidden-import=“sklearn.utils._cython_blas” --hidden-import=“sklearn.utils.typedefs” --hidden-import=“sklearn.neighbors.typedefs” --hidden-import=“sklearn.neighbors.quad_tree” --hidden-import=“sklearn.tree” --hidden-import=“sklearn.tree._utils” --hidden-import=“sklearn.neighbors._partition_nodes”  Willy_Modules.py
+
+
+pyinstaller -F  P12_Exception_Record_Get_MissStation_Data.py
+
+pyinstaller -F --hiddenimport=PySide2 P12_Exception_Record_Get_MissStation_Data_V02.py
+
+pyuic5 -x tool_miss_station.ui -o UI.py
+
+Traceback (most recent call last):
+  File "Willy_Modules.py", line 38, in <module>
+  File "PyInstaller\loader\pyimod03_importers.py", line 495, in exec_module
+  File "sklearn\linear_model\__init__.py", line 11, in <module>
+  File "PyInstaller\loader\pyimod03_importers.py", line 495, in exec_module
+  File "sklearn\linear_model\_least_angle.py", line 28, in <module>
+  File "PyInstaller\loader\pyimod03_importers.py", line 495, in exec_module
+  File "sklearn\model_selection\__init__.py", line 23, in <module>
+  File "PyInstaller\loader\pyimod03_importers.py", line 495, in exec_module
+  File "sklearn\model_selection\_validation.py", line 31, in <module>
+  File "PyInstaller\loader\pyimod03_importers.py", line 495, in exec_module
+  File "sklearn\metrics\__init__.py", line 39, in <module>
+  File "sklearn\metrics\_dist_metrics.pyx", line 31, in init sklearn.metrics._dist_metrics
+ModuleNotFoundError: No module named 'sklearn.utils._typedefs'
+
+
+
+Traceback (most recent call last):
+  File "Willy_Modules.py", line 41, in <module>
+  File "PyInstaller\loader\pyimod03_importers.py", line 495, in exec_module
+  File "sklearn\ensemble\__init__.py", line 5, in <module>
+  File "PyInstaller\loader\pyimod03_importers.py", line 495, in exec_module
+  File "sklearn\ensemble\_base.py", line 18, in <module>
+  File "PyInstaller\loader\pyimod03_importers.py", line 495, in exec_module
+  File "sklearn\tree\__init__.py", line 6, in <module>
+  File "PyInstaller\loader\pyimod03_importers.py", line 495, in exec_module
+  File "sklearn\tree\_classes.py", line 41, in <module>
+  File "sklearn\tree\_criterion.pyx", line 1, in init sklearn.tree._criterion
+  File "sklearn\tree\_splitter.pyx", line 1, in init sklearn.tree._splitter
+  File "sklearn\tree\_tree.pyx", line 1, in init sklearn.tree._tree
+  File "PyInstaller\loader\pyimod03_importers.py", line 495, in exec_module
+  File "sklearn\neighbors\__init__.py", line 6, in <module>
+  File "sklearn\neighbors\_ball_tree.pyx", line 1, in init sklearn.neighbors._ball_tree
+ModuleNotFoundError: No module named 'sklearn.neighbors._partition_nodes'
+
+
+
+
+
+# Extraction
+pandas
+openpyxl
+pyside2
+pyinstaller
+jinja2
+
+
+# Display
+pandas
+openpyxl
+pyside2
+pyinstaller
+
+
+# Map
+pandas
+openpyxl
+pyside2
+pyinstaller
+matplotlib
+seaborn
