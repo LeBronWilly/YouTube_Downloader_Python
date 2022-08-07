@@ -52,7 +52,7 @@ def clickUrl():  # 按「確定」鈕後處理函式 (btnUrl)
             labelMsg.config(text="找不到此YouTube！\n正確格式應為https://www.youtube.com/watch?v=XXXXX...")
 
 
-def rbVideo():  # 點選選項按鈕後處理函式
+def rbVideo():  # 點選選項按鈕後處理函式 (rbtem: Radiobutton)
     global get_video, str_ftype, str_video
     labelMsg.config(text="")
     str_video = str(list_video[video.get()-1])  # 取得點選項目
@@ -68,7 +68,7 @@ def rbVideo():  # 點選選項按鈕後處理函式
 
 
 
-def clickDown():  # 按「下載影片」鈕後處理函式
+def clickDown():  # 按「下載影片」鈕後處理函式 (btnDown)
     global get_video, str_ftype, list_radio
     if(path.get()==""):  # 若未輸入路徑就顯示提示訊息
         labelMsg.config(text="路徑欄位必須輸入！")
@@ -89,7 +89,7 @@ def clickDown():  # 按「下載影片」鈕後處理函式
         btnDown2.config(state="disabled")
 
 
-def cd():  # 按「下載音樂」鈕後處理函式
+def cd():  # 按「下載音樂」鈕後處理函式 (btnDown2)
     global get_video, str_ftype, list_radio
     if(path.get()==""):  # 若未輸入路徑就顯示提示訊息
         labelMsg.config(text="路徑欄位必須輸入！")
@@ -156,9 +156,9 @@ label3.grid(row=2, column=0, pady=10, sticky="e")
 entry_File.grid(row=2, column=1)
 
 
-label4 = tk.Label(frame1, fg="blue", font=(12),
-                text="下載速度視電腦而定，音樂會稍慢些\n程式會停頓代表在執行中，並非當掉！\n")
-label4.grid(row=3, column=1, columnspan=2,sticky="se")
+label4 = tk.Label(frame1, fg="blue", font=10,
+                  text="程式會停頓代表在執行中，並非當掉！")
+label4.grid(row=3, column=1, columnspan=2, sticky="se")
 
 
 
@@ -166,17 +166,23 @@ label4.grid(row=3, column=1, columnspan=2,sticky="se")
 frame2 = tk.Frame(win)
 frame2.pack()
 
-btnDown2 = tk.Button(frame2, text="僅下載音樂", command=cd)
+btnDown2 = tk.Button(frame2, text="Download Music", command=cd)
 btnDown2.pack(pady=6)
 btnDown2.config(state="disabled")  # 開始時設定「下載音樂」按鈕無效
-btnDown = tk.Button(frame2, text="下載影片", command=clickDown)
+btnDown = tk.Button(frame2, text="Download Video", command=clickDown)
 btnDown.pack(pady=6)
 btnDown.config(state="disabled")  # 開始時設定「下載影片」按鈕無效
 
-labelMsg = tk.Label(win, text="", fg="red")  # 訊息標籤
+labelMsg = tk.Label(frame2, text="", fg="red")  # 訊息標籤
 labelMsg.pack()
+
+
+
 
 frame3 = tk.Frame(win)  # 選項按鈕區塊
 frame3.pack()
-    
-win.mainloop() # 非常重要的函式，會使程式常駐執行
+
+
+
+
+win.mainloop()  # 非常重要的函式，會使程式常駐執行
