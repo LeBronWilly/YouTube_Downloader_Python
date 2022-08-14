@@ -16,18 +16,17 @@ def clickUrl():  # 按「確定」鈕後處理函式 (btnUrl)
     list_radio.clear()  # 清除串列
     list_video.clear()
     # labelMsg.config(text="")  # 清除提示訊息
-    labelMsg.config(text="Select video resolution and file format\n")
+    labelMsg.config(text="Select file format and video resolution\n")
     if url.get() == "":  # 若未輸入網址就顯示提示訊息
         labelMsg.config(text="No value in YouTube Url!")
     else:
         # 捕捉影片不存在的錯誤
-        try:
+        try:  # 顯示影片存在訊息
             # yt.url = url.get()  # 取得輸入網址
             yt = YouTube(url.get())
             print(url.get())
             rbvalue = 1  # 設定選項按鈕的值
-            entry_File.config(state="normal")  # Editable
-            filename.set(yt.title)  # 取得影片名稱
+            # entry_File.config(state="normal")  # Editable
             entry_File.config(state="disabled")  # Uneditable
             for v1 in yt.streams.filter(progressive=True):  # 建立影片格式串列 .all() is deprecated
                 list_video.append(v1)
@@ -37,12 +36,15 @@ def clickUrl():  # 按「確定」鈕後處理函式 (btnUrl)
                                        variable=video,
                                        value=rbvalue,
                                        command=rbVideo)
-                if rbvalue == 1:  # 預設選取第1個選項按鈕
-                    rbtem.select()
-                    rbVideo()
+                # if rbvalue == 1:  # 預設選取第1個選項按鈕
+                #     rbtem.select()
+                #     rbVideo()
                 list_radio.append(rbtem)  # 建立選項按鈕串列
                 rbtem.grid(row=rbvalue-1, column=0, sticky="w")
                 rbvalue += 1
+            list_radio[-1].select()  # 預設選取最後1個選項按鈕
+            rbVideo()  # 點選選項按鈕後處理函式
+            # filename.set(yt.title)  # 取得影片名稱
             btnDown.config(state="normal")  # 設定「下載影片」按鈕有效
             btnDown2.config(state="normal")
         except:  # 顯示影片不存在訊息
@@ -54,31 +56,34 @@ def clickUrl():  # 按「確定」鈕後處理函式 (btnUrl)
 
 
 def rbVideo():  # 點選選項按鈕後處理函式 (rbtem: Radiobutton)
-    global get_video, str_ftype, str_video
+    global get_video, str_ftype, str_video, full_filename
     labelMsg.config(text="")
-    str_video = str(list_video[video.get() - 1])  # 取得點選項目
-    # 取得影片型態(Ex.mp4、3gpp)
+    str_video = str(list_video[video.get()-1])  # 取得點選項目
+    print(video, str_video)
+    # 取得影片型態 (Ex. mp4、3gpp)
     start1 = str_video.find("video/")
     end1 = str_video.find("res")
-    str_ftype = str_video[start1 + 6: end1 - 2]
-    # 取得影片解析度(Ex.360p、240p)
+    str_ftype = str_video[start1+6:end1-2]
+    # 取得影片解析度 (Ex. 720p、360p、240p)
     end2 = str_video.find("fps")
-    strresolution = str_video[end1 + 5: end2 - 2]
-    get_video = yt.streams.filter(subtype=str_ftype, resolution=strresolution).first()  # 取得影片格式
-    print(str_ftype, strresolution)
+    str_resolution = str_video[end1+5:end2-2]
+    get_video = yt.streams.filter(subtype=str_ftype, resolution=str_resolution).first()  # 取得影片格式
+    print(str_ftype, str_resolution)
+    full_filename = yt.title+"_"+str_ftype+"_"+str_resolution
+    filename.set(full_filename)  # 取得影片名稱
 
 
 def clickDown():  # 按「下載影片」鈕後處理函式 (btnDown)
     global get_video, str_ftype, list_radio
-    if (path.get() == ""):  # 若未輸入路徑就顯示提示訊息
-        labelMsg.config(text="路徑欄位必須輸入！")
+    if path.get() == "":  # 若未輸入路徑就顯示提示訊息
+        labelMsg.config(text="No value in Folder Path!")
     else:
         labelMsg.config(text="")
         fpath = path.get()  # 取得輸入存檔資料夾
         fpath = fpath.replace("\\", "\\\\")
         # 將「\」轉換為「\\」
         #    yt.set_filename(filename.get())
-        get_video.download(fpath)
+        get_video.download(output_path=fpath, filename=full_filename+"."+full_filename.split("_")[-2])
         for r in list_radio:  # 移除選項按鈕
             r.destroy()
         list_radio.clear()  # 清除串列
@@ -91,13 +96,13 @@ def clickDown():  # 按「下載影片」鈕後處理函式 (btnDown)
 
 def cd():  # 按「下載音樂」鈕後處理函式 (btnDown2)
     global get_video, str_ftype, list_radio
-    if (path.get() == ""):  # 若未輸入路徑就顯示提示訊息
-        labelMsg.config(text="路徑欄位必須輸入！")
+    if path.get() == "":  # 若未輸入路徑就顯示提示訊息
+        labelMsg.config(text="No value in Folder Path!")
     else:
         labelMsg.config(text="")
         fpath = path.get()  # 取得輸入存檔資料夾
         fpath = fpath.replace("\\", "\\\\")
-        yt.streams.get_by_itag(140).download(fpath)
+        yt.streams.get_by_itag(140).download(output_path=fpath)
         for r in list_radio:  # 移除選項按鈕
             r.destroy()
         list_radio.clear()  # 清除串列
@@ -110,7 +115,7 @@ def cd():  # 按「下載音樂」鈕後處理函式 (btnDown2)
 
 win = tk.Tk()  # GUI的核心，需要用這個函式建立架構
 win.title("YouTube_Downloader_Python")  #
-win.geometry("600x400")  # 設定主視窗解析度(長寬設定)
+win.geometry("800x400")  # 設定主視窗解析度(長寬設定)
 
 get_video = ""  # 影片格式
 str_ftype = ""  # 影片型態
@@ -130,7 +135,7 @@ frame1.pack(side="top")  # 其中pack為最基礎的佈局方式
 label1 = tk.Label(frame1, text="YouTube Url: ")
 # Entry用來呈現讓使用者輸入文字的視窗，利用show()函式可以將輸入的文字轉成指定的文字
 entry_Url = tk.Entry(frame1, textvariable=url)
-entry_Url.config(width=50)
+entry_Url.config(width=80)
 # button這個元件就是按鈕，比較重要的參數就是text，用來顯示按鈕內的文字。
 btnUrl = tk.Button(frame1, text="Scrape!", command=clickUrl)
 # grid可以想像成是表格式的排列方法，可以利用控制row(列)以及column(行)來有規律地規劃元素
@@ -140,13 +145,14 @@ btnUrl.grid(row=0, column=2)
 
 label2 = tk.Label(frame1, text="Folder Path to Save File: ")
 entry_Path = tk.Entry(frame1, textvariable=path)
-entry_Path.config(width=50)
+entry_Path.config(width=80)
+path.set("testing")
 label2.grid(row=1, column=0, pady=10, sticky="e")
 entry_Path.grid(row=1, column=1)
 
 label3 = tk.Label(frame1, text="File Name: ")
 entry_File = tk.Entry(frame1, textvariable=filename)
-entry_File.config(width=50)
+entry_File.config(width=80)
 label3.grid(row=2, column=0, pady=10, sticky="e")
 entry_File.grid(row=2, column=1)
 
