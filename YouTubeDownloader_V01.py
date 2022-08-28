@@ -6,6 +6,7 @@
 # https://stackoverflow.com/questions/20125967/how-to-set-default-text-for-a-tkinter-entry-widget
 # https://tw.coderbridge.com/series/c471d97bb201460ab137c5e4955987df/posts/0baeb8bf25e543ed8462bd742cd1946f
 # https://pytube.io/en/latest/user/streams.html
+# https://www.pythontutorial.net/tkinter/tkinter-grid/
 
 
 # from Willy_Modules import *
@@ -14,7 +15,7 @@ from pytube import YouTube
 
 
 ### 自建函數
-def clickUrl():  # 按「確定」鈕後處理函式 (btnUrl)
+def clickUrl():  # 按「Scrape」鈕後處理函式 (btnUrl)
     global list_video, list_radio, yt
     for r in list_radio:  # 移除選項按鈕
         r.destroy()
@@ -75,10 +76,11 @@ def rbVideo():  # 點選選項按鈕後處理函式 (rbtem: Radiobutton)
     get_video = yt.streams.filter(subtype=str_ftype, resolution=str_resolution).first()  # 取得影片格式
     print(str_ftype, str_resolution)
     full_filename = yt.title+"_"+str_ftype+"_"+str_resolution
+    full_filename = full_filename.replace("/", "_").replace("\\", "_")
     filename.set(full_filename)  # 取得影片名稱
 
 
-def clickDown():  # 按「下載影片」鈕後處理函式 (btnDown)
+def clickDown():  # 按「Download Video」鈕後處理函式 (btnDown)
     global get_video, str_ftype, list_radio
     if path.get() == "":  # 若未輸入路徑就顯示提示訊息
         labelMsg.config(text="No value in Folder Path!")
@@ -100,7 +102,7 @@ def clickDown():  # 按「下載影片」鈕後處理函式 (btnDown)
         labelMsg.config(text="Done!")
 
 
-def cd():  # 按「下載音樂」鈕後處理函式 (btnDown2)
+def cd():  # 按「Download Music」鈕後處理函式 (btnDown2)
     global get_video, str_ftype, list_radio
     if path.get() == "":  # 若未輸入路徑就顯示提示訊息
         labelMsg.config(text="No value in Folder Path!")
@@ -108,7 +110,7 @@ def cd():  # 按「下載音樂」鈕後處理函式 (btnDown2)
         labelMsg.config(text="")
         fpath = path.get()  # 取得輸入存檔資料夾
         fpath = fpath.replace("\\", "\\\\")
-        yt.streams.get_by_itag(140).download(output_path=fpath, filename=yt.title+"_music.mp4")
+        yt.streams.get_by_itag(140).download(output_path=fpath, filename=yt.title.replace("/", "_").replace("\\", "_")+"_music.mp4")
         for r in list_radio:  # 移除選項按鈕
             r.destroy()
         list_radio.clear()  # 清除串列
@@ -154,8 +156,8 @@ btnUrl.grid(row=0, column=2)
 label2 = tk.Label(frame1, text="Folder Path to Save File: ")
 entry_Path = tk.Entry(frame1, textvariable=path)
 entry_Path.config(width=100)
-entry_Path.insert(-1, 'testing/')
-# path.set("testing")
+entry_Path.insert(-1, 'Download/')
+# path.set("Download")
 label2.grid(row=1, column=0, pady=10, sticky="e")
 entry_Path.grid(row=1, column=1)
 
@@ -165,9 +167,10 @@ entry_File.config(width=100, state="disabled")  # Uneditable
 label3.grid(row=2, column=0, pady=10, sticky="e")
 entry_File.grid(row=2, column=1)
 
-label4 = tk.Label(frame1, fg="blue", font=7,
-                  text="When executing, the program will pause, not crash!")
-label4.grid(row=3, column=1, columnspan=2, sticky="s")
+label4 = tk.Label(frame1, fg="blue",
+                  text="                          \
+                  When executing, the program will pause, not crash!")
+label4.grid(row=3, column=1, columnspan=1, sticky="w")
 
 
 
@@ -178,7 +181,7 @@ btnDown2 = tk.Button(frame2, text="Download Music", command=cd)
 btnDown2.pack(pady=6)
 btnDown2.config(state="disabled")  # 開始時設定「下載音樂」按鈕無效
 
-label5 = tk.Label(frame2, text="=======================================================================")  # 訊息標籤
+label5 = tk.Label(frame2, text="===============================================================================")  # 訊息標籤
 label5.pack()
 
 
@@ -189,7 +192,7 @@ btnDown.pack(pady=6)
 btnDown.config(state="disabled")  # 開始時設定「下載影片」按鈕無效
 
 
-labelMsg = tk.Label(frame2, text="666", fg="red")  # 訊息標籤
+labelMsg = tk.Label(frame2, text="Welcome!", fg="red")  # 訊息標籤
 labelMsg.pack()
 
 win.mainloop()  # 非常重要的函式，會使程式常駐執行
