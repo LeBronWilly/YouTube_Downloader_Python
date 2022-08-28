@@ -9,11 +9,11 @@
 
 
 # from Willy_Modules import *
-
 import tkinter as tk
 from pytube import YouTube
 
 
+### 自建函數
 def clickUrl():  # 按「確定」鈕後處理函式 (btnUrl)
     global list_video, list_radio, yt
     for r in list_radio:  # 移除選項按鈕
@@ -97,6 +97,7 @@ def clickDown():  # 按「下載影片」鈕後處理函式 (btnDown)
         filename.set("")
         btnDown.config(state="disabled")
         btnDown2.config(state="disabled")
+        labelMsg.config(text="Done!")
 
 
 def cd():  # 按「下載音樂」鈕後處理函式 (btnDown2)
@@ -116,8 +117,10 @@ def cd():  # 按「下載音樂」鈕後處理函式 (btnDown2)
         filename.set("")
         btnDown.config(state="disabled")
         btnDown2.config(state="disabled")
+        labelMsg.config(text="Done!")
 
 
+### 主程式
 win = tk.Tk()  # GUI的核心，需要用這個函式建立架構
 win.title("YouTube_Downloader_Python")  #
 win.geometry("1000x400")  # 設定主視窗解析度(長寬設定)
@@ -151,7 +154,7 @@ btnUrl.grid(row=0, column=2)
 label2 = tk.Label(frame1, text="Folder Path to Save File: ")
 entry_Path = tk.Entry(frame1, textvariable=path)
 entry_Path.config(width=100)
-entry_Path.insert(-1, 'testing')
+entry_Path.insert(-1, 'testing/')
 # path.set("testing")
 label2.grid(row=1, column=0, pady=10, sticky="e")
 entry_Path.grid(row=1, column=1)
@@ -166,6 +169,8 @@ label4 = tk.Label(frame1, fg="blue", font=7,
                   text="When executing, the program will pause, not crash!")
 label4.grid(row=3, column=1, columnspan=2, sticky="s")
 
+
+
 frame2 = tk.Frame(win)
 frame2.pack()
 
@@ -173,11 +178,9 @@ btnDown2 = tk.Button(frame2, text="Download Music", command=cd)
 btnDown2.pack(pady=6)
 btnDown2.config(state="disabled")  # 開始時設定「下載音樂」按鈕無效
 
-label5 = tk.Label(frame2, text="================================================================")  # 訊息標籤
+label5 = tk.Label(frame2, text="=======================================================================")  # 訊息標籤
 label5.pack()
 
-labelMsg = tk.Label(frame2, text="", fg="red")  # 訊息標籤
-labelMsg.pack()
 
 frame3 = tk.Frame(win)  # 選項按鈕區塊
 frame3.pack()
@@ -185,5 +188,8 @@ btnDown = tk.Button(frame2, text="Download Video", command=clickDown)
 btnDown.pack(pady=6)
 btnDown.config(state="disabled")  # 開始時設定「下載影片」按鈕無效
 
+
+labelMsg = tk.Label(frame2, text="666", fg="red")  # 訊息標籤
+labelMsg.pack()
 
 win.mainloop()  # 非常重要的函式，會使程式常駐執行
