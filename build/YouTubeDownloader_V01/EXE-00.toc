@@ -2,7 +2,7 @@
  True,
  False,
  False,
- 'D:\\GitHub\\YouTube_Downloader_Python\\venv\\lib\\site-packages\\PyInstaller\\bootloader\\images\\icon-console.ico',
+ 'D:\\GitHub\\YouTube_Downloader_Python\\YouTube.ico',
  None,
  False,
  False,
@@ -2674,7 +2674,7 @@
  [],
  False,
  False,
- 1661663179,
+ 1664087735,
  [('run.exe',
    'D:\\GitHub\\YouTube_Downloader_Python\\venv\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit\\run.exe',
    'EXECUTABLE')])
