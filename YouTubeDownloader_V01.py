@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # https://ithelp.ithome.com.tw/users/20140047/ironman/4481
 # https://vocus.cc/article/624e6738fd89780001ae7c1e
 # https://ithelp.ithome.com.tw/articles/10278264
@@ -7,12 +9,16 @@
 # https://tw.coderbridge.com/series/c471d97bb201460ab137c5e4955987df/posts/0baeb8bf25e543ed8462bd742cd1946f
 # https://pytube.io/en/latest/user/streams.html
 # https://www.pythontutorial.net/tkinter/tkinter-grid/
-
+# https://stackoverflow.com/questions/65635835/displaying-image-from-url-in-python-tkinter
+# https://stackoverflow.com/questions/60664217/how-do-i-setup-a-window-icon-using-tkinter
+# https://stackoverflow.com/questions/64770422/how-to-display-image-in-python-tkinter-from-url
 
 # from Willy_Modules import *
 import tkinter as tk
 from pytube import YouTube
-
+import urllib.request
+from PIL import ImageTk, Image
+import io
 
 ### 自建函數
 def clickUrl():  # 按「Scrape」鈕後處理函式 (btnUrl)
@@ -126,6 +132,11 @@ def cd():  # 按「Download Music」鈕後處理函式 (btnDown2)
 win = tk.Tk()  # GUI的核心，需要用這個函式建立架構
 win.title("YouTube_Downloader_Python")  #
 win.geometry("1000x400")  # 設定主視窗解析度(長寬設定)
+
+url = 'https://raw.githubusercontent.com/LeBronWilly/YouTube_Downloader_Python/main/YouTube.png'
+img_data = urllib.request.urlopen(url).read()
+image = ImageTk.PhotoImage(Image.open(io.BytesIO(img_data)))
+win.iconphoto(False, image)
 
 get_video = ""  # 影片格式
 str_ftype = ""  # 影片型態

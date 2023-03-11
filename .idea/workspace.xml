@@ -5,9 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5afcdb7a-2128-4452-9b49-5a0ab07149dc" name="变更" comment="">
-      <change beforePath="$PROJECT_DIR$/YouTubeDownloader_V01.spec" beforeDir="false" afterPath="$PROJECT_DIR$/YouTubeDownloader_V01.spec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Download/Pokémon OR_AS &amp; Remix - Zinnia Battle Mashup (HQ)_music.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Download/Rainy。「Find the truth」Music Video（安室透Ver.）_mp4_720p.mp4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Download/(J-pop) EXILE ~第1章~ - careless breath (2006) [Lip-syncMV]_mp4_720p.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Download/(J-pop) EXILE ~第1章~ - careless breath (2006) [Lip-syncMV]_music.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Download/Bruno Mars - Just The Way You Are (Official Music Video)_mp4_360p.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Download/InuYasha The Final Act Ending 2.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Download/Pokemon Diamond_Pearl Nostalgic Music (with rain sounds) - Sleep_Study music_music.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Download/Pokemon XYZ Opening Full XY&amp;Z_mp4_720p.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Download/Selena Gomez - The Heart Wants What It Wants (Official Video)_mp4_720p.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Download/Selena Gomez - The Heart Wants What It Wants (Official Video)_music.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Download/丁噹 我愛他 歌詞_mp4_720p.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Download/丁噹 我愛他 歌詞_music.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Download/光良 童話 歌詞_mp4_720p.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YouTubeDownloader_V01.exe" beforeDir="false" afterPath="$PROJECT_DIR$/YouTubeDownloader_V01.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YouTubeDownloader_V01.py" beforeDir="false" afterPath="$PROJECT_DIR$/YouTubeDownloader_V01.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/YouTubeDownloader_V01/Analysis-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/YouTubeDownloader_V01/Analysis-00.toc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/YouTubeDownloader_V01/EXE-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/YouTubeDownloader_V01/EXE-00.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/YouTubeDownloader_V01.exe" beforeDir="false" afterPath="$PROJECT_DIR$/dist/YouTubeDownloader_V01.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/YouTubeDownloader_V01/PKG-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/YouTubeDownloader_V01/PKG-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/YouTubeDownloader_V01/PYZ-00.pyz" beforeDir="false" afterPath="$PROJECT_DIR$/build/YouTubeDownloader_V01/PYZ-00.pyz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/YouTubeDownloader_V01/PYZ-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/YouTubeDownloader_V01/PYZ-00.toc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/YouTubeDownloader_V01/YouTubeDownloader_V01.pkg" beforeDir="false" afterPath="$PROJECT_DIR$/build/YouTubeDownloader_V01/YouTubeDownloader_V01.pkg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/YouTubeDownloader_V01/base_library.zip" beforeDir="false" afterPath="$PROJECT_DIR$/build/YouTubeDownloader_V01/base_library.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/YouTubeDownloader_V01/warn-YouTubeDownloader_V01.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/YouTubeDownloader_V01/warn-YouTubeDownloader_V01.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/YouTubeDownloader_V01/xref-YouTubeDownloader_V01.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/YouTubeDownloader_V01/xref-YouTubeDownloader_V01.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,18 +51,21 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2Cyj3p4UC8qp1SyKfb3igZEiEp9" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Python.YouTubeDownloader_V01">
     <configuration name="YouTubeDownloader_V01" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="YouTube_Downloader_Python" />
@@ -111,5 +137,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
