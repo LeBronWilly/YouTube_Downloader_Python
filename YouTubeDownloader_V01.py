@@ -42,6 +42,8 @@ def clickUrl():  # 按「Scrape」鈕後處理函式 (btnUrl)
             # entry_File.config(state="disabled")  # Uneditable
             for v1 in yt.streams.filter(progressive=True):  # 建立影片格式串列 .all() is deprecated
                 list_video.append(v1)
+            # for v1 in yt.streams:  # 建立影片格式串列 .all() is deprecated
+            #     list_video.append(v1)
             for v2 in list_video:  # 迴圈建立多個影片格式選項按鈕
                 # 這個元件就是常見的按圓形按紐，通常不能複選。
                 rbtem = tk.Radiobutton(frame3, text=v2,
