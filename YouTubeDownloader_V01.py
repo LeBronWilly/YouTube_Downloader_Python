@@ -84,7 +84,7 @@ def rbVideo():  # 點選選項按鈕後處理函式 (rbtem: Radiobutton)
     get_video = yt.streams.filter(subtype=str_ftype, resolution=str_resolution).first()  # 取得影片格式
     print(str_ftype, str_resolution)
     full_filename = yt.title+"_"+str_ftype+"_"+str_resolution
-    full_filename = full_filename.replace("/", "_").replace("\\", "_")
+    full_filename = full_filename.replace("/", "_").replace("\\", "_").replace(":", "_")
     filename.set(full_filename)  # 取得影片名稱
 
 
@@ -98,15 +98,15 @@ def clickDown():  # 按「Download Video」鈕後處理函式 (btnDown)
         fpath = fpath.replace("\\", "\\\\")
         # 將「\」轉換為「\\」
         #    yt.set_filename(filename.get())
-        get_video.download(output_path=fpath, filename=full_filename+"."+full_filename.split("_")[-2])
-        for r in list_radio:  # 移除選項按鈕
-            r.destroy()
-        list_radio.clear()  # 清除串列
-        list_video.clear()
-        url.set("")  # 清除輸入框
-        filename.set("")
-        btnDown.config(state="disabled")
-        btnDown2.config(state="disabled")
+        get_video.download(skip_existing=False, output_path=fpath, filename=full_filename+"."+full_filename.split("_")[-2])
+        # for r in list_radio:  # 移除選項按鈕
+        #     r.destroy()
+        # list_radio.clear()  # 清除串列
+        # list_video.clear()
+        # url.set("")  # 清除輸入框
+        # filename.set("")
+        # btnDown.config(state="disabled")
+        # btnDown2.config(state="disabled")
         labelMsg.config(text="Done!")
 
 
@@ -118,15 +118,15 @@ def cd():  # 按「Download Music」鈕後處理函式 (btnDown2)
         labelMsg.config(text="")
         fpath = path.get()  # 取得輸入存檔資料夾
         fpath = fpath.replace("\\", "\\\\")
-        yt.streams.get_by_itag(140).download(output_path=fpath, filename=yt.title.replace("/", "_").replace("\\", "_")+"_music.mp4")
-        for r in list_radio:  # 移除選項按鈕
-            r.destroy()
-        list_radio.clear()  # 清除串列
-        list_video.clear()
-        url.set("")  # 清除輸入框
-        filename.set("")
-        btnDown.config(state="disabled")
-        btnDown2.config(state="disabled")
+        yt.streams.get_by_itag(140).download(skip_existing=False, output_path=fpath, filename=yt.title.replace("/", "_").replace("\\", "_").replace(":", "_")+"_music.mp4")
+        # for r in list_radio:  # 移除選項按鈕
+        #     r.destroy()
+        # list_radio.clear()  # 清除串列
+        # list_video.clear()
+        # url.set("")  # 清除輸入框
+        # filename.set("")
+        # btnDown.config(state="disabled")
+        # btnDown2.config(state="disabled")
         labelMsg.config(text="Done!")
 
 
