@@ -21,16 +21,18 @@ from PIL import ImageTk, Image
 import io
 
 ### 自建函數
-def clickUrl():  # 按「Scrape」鈕後處理函式 (btnUrl)
+def clickUrl():  # 按「Search」鈕後處理函式 (btnUrl)
     global list_video, list_radio, yt
     for r in list_radio:  # 移除選項按鈕
         r.destroy()
     list_radio.clear()  # 清除串列
     list_video.clear()
-    # labelMsg.config(text="")  # 清除提示訊息
-    labelMsg.config(text="Select file format and video resolution\n")
+    labelMsg.config(text="Select file format (mime_type) and video resolution (res)")
+    labelMsg2.config(text="")  # 清除提示訊息
+    labelMsg3.config(text="")  # 清除提示訊息
     if url.get() == "":  # 若未輸入網址就顯示提示訊息
         labelMsg.config(text="No value in YouTube Url!")
+        filename.set("")
     else:
         # 捕捉影片不存在的錯誤
         try:  # 顯示影片存在訊息
@@ -66,12 +68,15 @@ def clickUrl():  # 按「Scrape」鈕後處理函式 (btnUrl)
                 r.destroy()
             list_radio.clear()  # 清除串列
             list_video.clear()
-            labelMsg.config(text="Cannot find the YouTube Url!\nThe correct url format should be:\nhttps://www.youtube.com/watch?v=XXXXXX......\nor\nhttps://youtu.be/XXXXXX")
+            # labelMsg.config(text="Cannot find the YouTube Url!\nThe correct url format should be:\nhttps://www.youtube.com/watch?v=XXXXXX......\nor\nhttps://youtu.be/XXXXXX")
+            labelMsg.config(text="Cannot find the YouTube Url!\nPlease Check!")
+            btnDown.config(state="disabled")
+            btnDown2.config(state="disabled")
+            filename.set("")
 
 
 def rbVideo():  # 點選選項按鈕後處理函式 (rbtem: Radiobutton)
     global get_video, str_ftype, str_video, full_filename
-    labelMsg.config(text="")
     str_video = str(list_video[video.get()-1])  # 取得點選項目
     print(video, str_video)
     # 取得影片型態 (Ex. mp4、3gpp)
@@ -83,17 +88,19 @@ def rbVideo():  # 點選選項按鈕後處理函式 (rbtem: Radiobutton)
     str_resolution = str_video[end1+5:end2-2]
     get_video = yt.streams.filter(subtype=str_ftype, resolution=str_resolution).first()  # 取得影片格式
     print(str_ftype, str_resolution)
+    labelMsg2.config(text=str_ftype+" "+str_resolution)
     full_filename = yt.title+"_"+str_ftype+"_"+str_resolution
     full_filename = full_filename.replace("/", "_").replace("\\", "_").replace(":", "_")
     filename.set(full_filename)  # 取得影片名稱
+    labelMsg3.config(text="")  # 清除提示訊息
 
 
 def clickDown():  # 按「Download Video」鈕後處理函式 (btnDown)
     global get_video, str_ftype, list_radio
+    labelMsg3.config(text="")
     if path.get() == "":  # 若未輸入路徑就顯示提示訊息
         labelMsg.config(text="No value in Folder Path!")
     else:
-        labelMsg.config(text="")
         fpath = path.get()  # 取得輸入存檔資料夾
         fpath = fpath.replace("\\", "\\\\")
         # 將「\」轉換為「\\」
@@ -107,15 +114,16 @@ def clickDown():  # 按「Download Video」鈕後處理函式 (btnDown)
         # filename.set("")
         # btnDown.config(state="disabled")
         # btnDown2.config(state="disabled")
-        labelMsg.config(text="Done!")
+        labelMsg3.config(text="Done!")
 
 
 def cd():  # 按「Download Music」鈕後處理函式 (btnDown2)
     global get_video, str_ftype, list_radio
+    labelMsg3.config(text="")
     if path.get() == "":  # 若未輸入路徑就顯示提示訊息
         labelMsg.config(text="No value in Folder Path!")
     else:
-        labelMsg.config(text="")
+        # labelMsg.config(text="")
         fpath = path.get()  # 取得輸入存檔資料夾
         fpath = fpath.replace("\\", "\\\\")
         yt.streams.get_by_itag(140).download(skip_existing=False, output_path=fpath, filename=yt.title.replace("/", "_").replace("\\", "_").replace(":", "_")+"_music.mp4")
@@ -127,13 +135,13 @@ def cd():  # 按「Download Music」鈕後處理函式 (btnDown2)
         # filename.set("")
         # btnDown.config(state="disabled")
         # btnDown2.config(state="disabled")
-        labelMsg.config(text="Done!")
+        labelMsg3.config(text="Done!")
 
 
 ### 主程式
 win = tk.Tk()  # GUI的核心，需要用這個函式建立架構
-win.title("YouTube_Downloader_Python")  #
-win.geometry("1000x400")  # 設定主視窗解析度(長寬設定)
+win.title("YouTube Downloader w/ Python")  #
+win.geometry("1000x450")  # 設定主視窗解析度(長寬設定)
 
 url = 'https://raw.githubusercontent.com/LeBronWilly/YouTube_Downloader_Python/main/YouTube.png'
 img_data = urllib.request.urlopen(url).read()
@@ -160,7 +168,7 @@ label1 = tk.Label(frame1, text="YouTube Url: ")
 entry_Url = tk.Entry(frame1, textvariable=url)
 entry_Url.config(width=100)
 # button這個元件就是按鈕，比較重要的參數就是text，用來顯示按鈕內的文字。
-btnUrl = tk.Button(frame1, text="Scrape!", command=clickUrl)
+btnUrl = tk.Button(frame1, text="Search!", command=clickUrl)
 # grid可以想像成是表格式的排列方法，可以利用控制row(列)以及column(行)來有規律地規劃元素
 label1.grid(row=0, column=0, pady=10, sticky="e")
 entry_Url.grid(row=0, column=1)
@@ -190,7 +198,7 @@ label4.grid(row=3, column=1, columnspan=1, sticky="w")
 frame2 = tk.Frame(win)
 frame2.pack()
 
-btnDown2 = tk.Button(frame2, text="Download Music", command=cd)
+btnDown2 = tk.Button(frame2, text="Download Music (mp4)", command=cd)
 btnDown2.pack(pady=6)
 btnDown2.config(state="disabled")  # 開始時設定「下載音樂」按鈕無效
 
@@ -207,5 +215,9 @@ btnDown.config(state="disabled")  # 開始時設定「下載影片」按鈕無�
 
 labelMsg = tk.Label(frame2, text="Welcome!", fg="red")  # 訊息標籤
 labelMsg.pack()
+labelMsg2 = tk.Label(frame2, text="", fg="red")  # 訊息標籤
+labelMsg2.pack()
+labelMsg3 = tk.Label(frame2, text="", fg="red")  # 訊息標籤
+labelMsg3.pack()
 
 win.mainloop()  # 非常重要的函式，會使程式常駐執行
