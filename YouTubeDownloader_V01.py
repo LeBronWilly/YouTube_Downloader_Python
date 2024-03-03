@@ -12,6 +12,7 @@
 # https://stackoverflow.com/questions/65635835/displaying-image-from-url-in-python-tkinter
 # https://stackoverflow.com/questions/60664217/how-do-i-setup-a-window-icon-using-tkinter
 # https://stackoverflow.com/questions/64770422/how-to-display-image-in-python-tkinter-from-url
+# https://github.com/pytube/pytube/issues/1783
 
 # from Willy_Modules import *
 import tkinter as tk
@@ -76,7 +77,7 @@ def clickUrl():  # 按「Search」鈕後處理函式 (btnUrl)
 
 
 def rbVideo():  # 點選選項按鈕後處理函式 (rbtem: Radiobutton)
-    global get_video, str_ftype, str_video, full_filename
+    global get_video, str_ftype, str_video, full_filename, str_resolution
     str_video = str(list_video[video.get()-1])  # 取得點選項目
     print(video, str_video)
     # 取得影片型態 (Ex. mp4、3gpp)
@@ -89,14 +90,27 @@ def rbVideo():  # 點選選項按鈕後處理函式 (rbtem: Radiobutton)
     get_video = yt.streams.filter(subtype=str_ftype, resolution=str_resolution).first()  # 取得影片格式
     print(str_ftype, str_resolution)
     labelMsg2.config(text=str_ftype+" "+str_resolution)
-    full_filename = yt.title+"_"+str_ftype+"_"+str_resolution
-    full_filename = full_filename.replace("/", "_").replace("\\", "_").replace(":", "_")
+    # full_filename = yt.title+"_"+str_ftype+"_"+str_resolution
+
+    info = yt.vid_info
+    titlename = info['videoDetails']['title']
+    artist = info['videoDetails']['author']
+    # full_filename = artist + " - " + titlename + "_" + str_ftype + "_" + str_resolution
+    full_filename = artist + " - " + titlename + " (" + str_resolution + ")"
+
+    # full_filename = full_filename.replace("/", "_").replace("\\", "_").replace(":", "_")
+    invalid_characters = "/\\:*?\"<>|"
+    for char in invalid_characters:
+        full_filename = full_filename.replace(char, " ")
+    full_filename = full_filename.replace('  ', ' ')
+    full_filename = ' '.join(full_filename.split())
+
     filename.set(full_filename)  # 取得影片名稱
     labelMsg3.config(text="")  # 清除提示訊息
 
 
 def clickDown():  # 按「Download Video」鈕後處理函式 (btnDown)
-    global get_video, str_ftype, list_radio
+    global get_video, str_ftype, list_radio, str_resolution
     labelMsg3.config(text="")
     if path.get() == "":  # 若未輸入路徑就顯示提示訊息
         labelMsg.config(text="No value in Folder Path!")
@@ -105,7 +119,10 @@ def clickDown():  # 按「Download Video」鈕後處理函式 (btnDown)
         fpath = fpath.replace("\\", "\\\\")
         # 將「\」轉換為「\\」
         #    yt.set_filename(filename.get())
-        get_video.download(skip_existing=False, output_path=fpath, filename=full_filename+"."+full_filename.split("_")[-2])
+
+        # get_video.download(skip_existing=False, output_path=fpath, filename=full_filename+"."+full_filename.split("_")[-2])
+        get_video.download(skip_existing=False, output_path=fpath, filename=full_filename+".mp4")
+
         # for r in list_radio:  # 移除選項按鈕
         #     r.destroy()
         # list_radio.clear()  # 清除串列
@@ -114,7 +131,7 @@ def clickDown():  # 按「Download Video」鈕後處理函式 (btnDown)
         # filename.set("")
         # btnDown.config(state="disabled")
         # btnDown2.config(state="disabled")
-        labelMsg3.config(text="Done!")
+        labelMsg3.config(text="Download Video (" + str_resolution + ") Done!")
 
 
 def cd():  # 按「Download Music」鈕後處理函式 (btnDown2)
@@ -126,7 +143,23 @@ def cd():  # 按「Download Music」鈕後處理函式 (btnDown2)
         # labelMsg.config(text="")
         fpath = path.get()  # 取得輸入存檔資料夾
         fpath = fpath.replace("\\", "\\\\")
-        yt.streams.get_by_itag(140).download(skip_existing=False, output_path=fpath, filename=yt.title.replace("/", "_").replace("\\", "_").replace(":", "_")+"_music.mp4")
+        # yt.streams.get_by_itag(140).download(skip_existing=False, output_path=fpath, filename=yt.title.replace("/", "_").replace("\\", "_").replace(":", "_")+"_music.mp4")
+
+        info = yt.vid_info
+        titlename = info['videoDetails']['title']
+        artist = info['videoDetails']['author']
+        full_filename = artist + " - " + titlename + " (" + "music" + ")"
+
+        # full_filename = full_filename.replace("/", "_").replace("\\", "_").replace(":", "_")
+        invalid_characters = "/\\:*?\"<>|"
+        for char in invalid_characters:
+            full_filename = full_filename.replace(char, " ")
+        full_filename = full_filename.replace('  ', ' ')
+        full_filename = ' '.join(full_filename.split())
+
+        yt.streams.get_by_itag(140).download(skip_existing=False, output_path=fpath, filename=full_filename+".mp4")
+
+
         # for r in list_radio:  # 移除選項按鈕
         #     r.destroy()
         # list_radio.clear()  # 清除串列
@@ -135,12 +168,12 @@ def cd():  # 按「Download Music」鈕後處理函式 (btnDown2)
         # filename.set("")
         # btnDown.config(state="disabled")
         # btnDown2.config(state="disabled")
-        labelMsg3.config(text="Done!")
+        labelMsg3.config(text="Download Music Done!")
 
 
 ### 主程式
 win = tk.Tk()  # GUI的核心，需要用這個函式建立架構
-win.title("YouTube Downloader w/ Python")  #
+win.title("YouTube Downloader w/ Python (developed by @willyfang0613)")  #
 win.geometry("1000x450")  # 設定主視窗解析度(長寬設定)
 
 url = 'https://raw.githubusercontent.com/LeBronWilly/YouTube_Downloader_Python/main/YouTube.png'
@@ -198,12 +231,15 @@ label4.grid(row=3, column=1, columnspan=1, sticky="w")
 frame2 = tk.Frame(win)
 frame2.pack()
 
+label5 = tk.Label(frame2, text="===============================================================================")  # 訊息標籤
+label5.pack()
+
 btnDown2 = tk.Button(frame2, text="Download Music (mp4)", command=cd)
 btnDown2.pack(pady=6)
 btnDown2.config(state="disabled")  # 開始時設定「下載音樂」按鈕無效
 
-label5 = tk.Label(frame2, text="===============================================================================")  # 訊息標籤
-label5.pack()
+# label5 = tk.Label(frame2, text="===============================================================================")  # 訊息標籤
+# label5.pack()
 
 
 frame3 = tk.Frame(win)  # 選項按鈕區塊
